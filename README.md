@@ -64,7 +64,7 @@ open http://localhost
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/whatsapp-api-platform.git
+git clone https://github.com/sree-charan/whatsapp-api
 cd whatsapp-api-platform
 
 # Configure environment
@@ -82,7 +82,7 @@ docker-compose logs -f
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/whatsapp-api-platform.git
+git clone https://github.com/sree-charan/whatsapp-api
 cd whatsapp-api-platform
 
 # Install dependencies
@@ -545,9 +545,9 @@ API_PORT=3002
 ```
 
 ### Getting Help
-- **Documentation**: [Full Documentation](https://github.com/your-username/whatsapp-api-platform/wiki)
-- **Issues**: [GitHub Issues](https://github.com/your-username/whatsapp-api-platform/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-username/whatsapp-api-platform/discussions)
+- **Documentation**: [Full Documentation](https://github.com/sree-charan/whatsapp-api-platform/docs)
+- **Issues**: [GitHub Issues](https://github.com/sree-charan/whatsapp-api-platform/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/sree-charan/whatsapp-api-platform/discussions)
 
 ## 🤝 Contributing
 
@@ -556,7 +556,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ### Development Setup
 ```bash
 # Clone repository
-git clone https://github.com/your-username/whatsapp-api-platform.git
+git clone https://github.com/sree-charan/whatsapp-api
 cd whatsapp-api-platform
 
 # Install dependencies
