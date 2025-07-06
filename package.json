@@ -1,0 +1,47 @@
+{
+  "name": "whatsapp-api-platform",
+  "version": "1.0.0",
+  "description": "A comprehensive WhatsApp API platform with web frontend and REST API",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
+  },
+  "keywords": [
+    "whatsapp",
+    "api",
+    "baileys",
+    "nodejs",
+    "react",
+    "webhook"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "autoprefixer": "^10.4.21",
+    "axios": "^1.10.0",
+    "lucide-react": "^0.525.0",
+    "postcss": "^8.5.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-qr-code": "^2.0.17",
+    "react-router-dom": "^7.6.3",
+    "react-toastify": "^11.0.5",
+    "tailwindcss": "^4.1.11"
+  }
+}

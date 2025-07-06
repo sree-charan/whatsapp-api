@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  whatsapp-api-platform:
+    image: whatsapp-api-platform:latest
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: whatsapp-api-platform
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${API_PORT:-3001}:3001"
+    environment:
+      # Application Settings
+      - NODE_ENV=production
+      - PORT=3001
+      
+      # Security Settings
+      - JWT_SECRET=${JWT_SECRET:-change-this-super-secret-jwt-key-in-production}
+      - API_KEY_PREFIX=${API_KEY_PREFIX:-wapi}
+      
+      # Session Limits
+      - MAX_SESSIONS_PER_USER=${MAX_SESSIONS_PER_USER:-10}
+      - MAX_GLOBAL_SESSIONS=${MAX_GLOBAL_SESSIONS:-1000}
+      
+      # Rate Limiting
+      - RATE_LIMIT_WINDOW_MS=${RATE_LIMIT_WINDOW_MS:-900000}
+      - RATE_LIMIT_MAX_REQUESTS=${RATE_LIMIT_MAX_REQUESTS:-100}
+      
+      # File Upload Settings
+      - MAX_FILE_SIZE=${MAX_FILE_SIZE:-50}
+      - UPLOAD_PATH=${UPLOAD_PATH:-/app/uploads}
+      
+      # Webhook Settings
+      - WEBHOOK_TIMEOUT=${WEBHOOK_TIMEOUT:-30000}
+      - WEBHOOK_MAX_RETRIES=${WEBHOOK_MAX_RETRIES:-3}
+      
+      # Database Settings (if you add database support later)
+      - DB_HOST=${DB_HOST:-}
+      - DB_PORT=${DB_PORT:-}
+      - DB_NAME=${DB_NAME:-}
+      - DB_USER=${DB_USER:-}
+      - DB_PASSWORD=${DB_PASSWORD:-}
+      
+      # Logging
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_MAX_FILES=${LOG_MAX_FILES:-10}
+      - LOG_MAX_SIZE=${LOG_MAX_SIZE:-10m}
+      
+    volumes:
+      # Persistent data storage
+      - whatsapp-sessions:/app/data
+      - whatsapp-logs:/app/logs
+      - whatsapp-uploads:/app/uploads
+      
+      # Optional: Custom configuration
+      # - ./config/custom.json:/app/config/custom.json:ro
+      
+    networks:
+      - whatsapp-network
+      
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+      
+    # Resource limits (adjust based on your needs)
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+
+networks:
+  whatsapp-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  whatsapp-sessions:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH:-./data}
+      
+  whatsapp-logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${LOGS_PATH:-./logs}
+      
+  whatsapp-uploads:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${UPLOADS_PATH:-./uploads} 
